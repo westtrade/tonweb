@@ -26,10 +26,15 @@ function sha256(bytes) {
 
 /**
  * from coins to nanocoins
- * @param amount {BN | string}
+ * @param amount {BN | string | number}
  * @return {BN}
  */
 function toNano(amount) {
+    const isNumber = typeof amount === 'number' && !isNaN(amount) && isFinite(amount)
+    if(isNumber) {
+        amount = amount.toString()
+    }
+
     if (!BN.isBN(amount) && !(typeof amount === 'string')) {
         throw new Error('Please pass numbers as strings or BN objects to avoid precision errors.');
     }
@@ -39,10 +44,15 @@ function toNano(amount) {
 
 /**
  * from nanocoins to coins
- * @param amount  {BN | string}
+ * @param amount  {BN | string | number}
  * @return {string}
  */
 function fromNano(amount) {
+    const isNumber = typeof amount === 'number' && !isNaN(amount) && isFinite(amount)
+    if(isNumber) {
+        amount = amount.toString()
+    }
+    
     if (!BN.isBN(amount) && !(typeof amount === 'string')) {
         throw new Error('Please pass numbers as strings or BN objects to avoid precision errors.');
     }
